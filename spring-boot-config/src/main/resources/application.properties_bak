@@ -1,0 +1,13 @@
+my.greeting=Hello
+app.name=configuration project
+#this is a way to reference another field in the file
+app.description=Welcome to ${app.name}
+my.list.values=One,Two,Three
+map.values={one: '1', two: '2', three: '3'}
+#this is a way to configure group properties
+db.connection={connectionString: 'http://...', userName: 'foo', password: 'pass'}
+db.host=127.0.0.1
+db.port=1200
+#this is to tell spring actuator that we want to expose all endpoints to see all configuration-
+#we will not do this in production env since it's not that secured
+management.endpoints.web.exposure.include=*
