@@ -5,12 +5,14 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.configuration.examples.springbootconfig.configuration.DbSettings;
 
 @RestController
+@RefreshScope //this tells spring that whenever there's a change in the configuration MS, we will pick the refreshed values for this file only
 public class GreetingResource {
 
 	@Value("${my.greeting}")

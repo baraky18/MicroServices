@@ -21,3 +21,10 @@ management.endpoints.web.exposure.include: "*"
 
 #this is to set the active profile of configuration as test
 spring.profiles.active: test
+
+#this is to connect the config client MS to config server MS
+spring.cloud.config.uri: http://locaclhost:8888
+
+#this is to get a specific configuration from configuration MS. we will have a spring-boot-config.yml file
+#in the config server that would be able to apply specific configuration to this MS
+spring.application.name: spring-boot-config

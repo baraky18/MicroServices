@@ -37,3 +37,20 @@ can be in the bottom layer and other layers can be env specific. few principles 
 4. we can have different beans instantiated by different configuration in order to trigger different business logic.
    this is done bu annotating the bean with @Profile("<chosen name>"). by default all of the other beans are internally 
    annotated with the @Profile("default") annotation
+   
+in order to externalize configuration, we can use configuration MS (spring-cloud-config-server). this MS will hold the configuration
+in git repository files and will fetch them each and every time it is used. meaning, we don't have to boot the configuration server
+for the changes to take place. it does that in several ways:
+1. first, we have to define the MS as configuration client by adding a dependency of spring-cloud-starter-config and dependencyManagement
+   in pom.xml of the MS.
+2. we have to connect the MS to the configuration MS by adding spring.cloud.config.uri property to the application.yml file
+3. we will create an application.yml in the git repository that will be common to all of the MS who uses this configuration MS
+4. we will create a <spesific MS name>.yml in the git repository that will be specific to the MS that's using the configuration MS,
+   we must add property spring.application.name to application.yml file that will specify the name of the client configuration MS
+
+in order to manage the configuration in real time (without booting the client configuration server each time there's a change in configuration),
+we have to do it in several steps:
+1. add the dependency spring-boot-starter-actuator (if it's not already added) and add the property management.endpoints.web.exposure.include
+   to the application.yml file.
+2. add @RefreshScope to the file that we want to refresh each time there's a change in configuration.
+3. we have to run <host>:<spesific MS port>/actuator/refresh POST method API
